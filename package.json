@@ -71,5 +71,13 @@
   "dependencies": {
     "babel-polyfill": "^6.13.0",
     "gulp-cli": "^1.2.2"
+  },
+  "jspm": {
+    "dependencies": {},
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
   }
 }

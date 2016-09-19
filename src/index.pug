@@ -10,9 +10,12 @@ body
     div(class="container-fluid", ui-view="")
 
     script(src="../node_modules/babel-polyfill/dist/polyfill.js")
-
     <!-- bower:js -->
     <!-- endbower -->
 
-    <!-- inject:js -->
-    <!-- endinject -->
+    script(src="jspm_packages/system.js")
+    script(src="config.js")
+    script.
+        System.import('app/setup.js');
+
+
