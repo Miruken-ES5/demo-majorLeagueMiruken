@@ -10,15 +10,12 @@ new function() {
 
     const EqualHeight = Directive.extend({
         restrict: "A",
-        require:  "?ngModel",
-        link(scope, elm, attrs, modelCtrl) {
-            elm.css("opacity", "0");
-            setTimeout(() => {
-                $(".js-equal-height").matchHeight({
+        link(scope, elm) {
+            scope.$watch(function () {
+                angular.element(elm).find('.js-equal-height').matchHeight({
                     property: "min-height"
                 });
-            elm.css("opacity", "");
-            }, 0);
+            }, Undefined);
         }
     });
 
