@@ -1,5 +1,5 @@
 {
-  "name": "scaffold",
+  "name": "major-league-miruken",
   "version": "1.0.0",
   "homepage": "https://github.com/miruken/demo-majorLeagueMiruken",
   "authors": [
@@ -15,20 +15,22 @@
     "tests"
   ],
   "dependencies": {
-    "angular-ui-router": "~0.2.15",
-    "bootstrap-sass": "~3.3.7",
-    "jquery": "~2.1.4",
-    "miruken-angular": "~0.0.87",
-    "moment": "^2.14.1",
-    "angular-messages": "1.4.7",
-    "angular-chosen-localytics": "^1.4.3",
+    "angular": "1.5.9",
+    "angular-chosen-localytics": "^1.5.0",
+    "angular-messages": "^1.5.8",
+    "angular-strap": "^2.3.10",
+    "angular-ui-router": "~0.3.2",
+    "bootstrap-additions": "^0.3.1",
     "bootstrap-chosen": "^1.0.1",
+    "bootstrap-sass": "^3.3.7",
+    "jquery": "~3.1.1",
     "matchHeight": "^0.7.0",
-    "angular-strap": "^2.3.9",
-    "bootstrap-additions": "^0.3.1"
+    "moment": "^2.15.2",
+    "miruken-es5-angular": "^2.0.0"
   },
   "resolutions": {
-    "angular-messages": "1.4.7",
-    "angular": "^1.0.8"
+    "angular": "1.5.9",
+    "jquery": "~3.1.1",
+    "angular-ui-router": "~0.3.2"
   }
 }
