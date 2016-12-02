@@ -3,7 +3,7 @@ include playerDisplay.pug
 .l-createPlayer
   .row
     .col-sm-12
-      h1 {{vm.title}}
+      h1 {{ctrl.title}}
   .row(equal-height)
     .col-sm-6
       .wrapSmall.js-equal-height
@@ -14,13 +14,13 @@ include playerDisplay.pug
                   label
                     .teamName Player Name
                 .col-sm-12.col-md-6
-                  input(type="text" placeholder="First Name" ng-model="vm.player.firstName")
-                  div.error(ng-messages='vm.$validation.player.firstName.errors')
+                  input(type="text" placeholder="First Name" ng-model="ctrl.player.firstName")
+                  div.error(ng-messages='ctrl.$validation.player.firstName.errors')
                     div.small(ng-message='presence')
                       |  Player's first name required
                 .col-sm-12.col-md-6
-                  input(type="text"  placeholder="Last Name" ng-model="vm.player.lastName")
-                  div.error(ng-messages='vm.$validation.player.lastName.errors')
+                  input(type="text"  placeholder="Last Name" ng-model="ctrl.player.lastName")
+                  div.error(ng-messages='ctrl.$validation.player.lastName.errors')
                    div.small(ng-message='presence')
                       |  Player's last name required
 
@@ -29,8 +29,8 @@ include playerDisplay.pug
                   .inputWrap
                     label
                       .teamManager Assign a Number
-                    input(type="text"  placeholder="Number" ng-model="vm.player.number")
-                    div.error(ng-messages='vm.$validation.player.number.errors')
+                    input(type="text"  placeholder="Number" ng-model="ctrl.player.number")
+                    div.error(ng-messages='ctrl.$validation.player.number.errors')
                       div.small(ng-message='presence')
                         |  Player's number is required
                       div.small(ng-message='numericality')
@@ -39,15 +39,15 @@ include playerDisplay.pug
                   .inputWrap
                     label
                       .teamManager Players Date of Birth
-                    input(type="text" placeholder="MM/DD/YYYY" ng-model="vm.player.birthdate" data-date-format="MM/dd/yyyy" data-container="body" bs-datepicker)
-                    div.error(ng-messages='vm.$validation.player.birthdate.errors')
+                    input(type="text" placeholder="MM/DD/YYYY" ng-model="ctrl.player.birthdate" data-date-format="MM/dd/yyyy" data-container="body" bs-datepicker)
+                    div.error(ng-messages='ctrl.$validation.player.birthdate.errors')
                       div.small(ng-message='presence')
                         |  Player's birthdate is required
                       div.small(ng-message='invalid')
                         | Invalid date.  Must be "MM/DD/YYYY"
     .col-sm-6
       .wrapSmall.js-equal-height
-        +playerDisplay("vm.player")
+        +playerDisplay("ctrl.player")
   .row
     .col-sm-12
-      button.pull-right.btn.btn-success(ng-click="vm.save()") {{vm.buttonText}}
+      button.pull-right.btn.btn-success(ng-click="ctrl.savePlayer()") {{ctrl.buttonText}}

@@ -7,17 +7,12 @@ new function() {
 
     eval(this.imports);
 
-    const PlayerFeature = StrictProtocol.extend({
+    const PlayerFeature = StrictProtocol.extend(Resolving, {
         createPlayer(player)   {},
         deletePlayer(player)   {},
         editPlayer(player)     {},
         player(id)             {},
         players()              {},
-        showChoosePlayer(team) {},
-        showCreatePlayer()     {},
-        showEditPlayer(team)   {},
-        showPlayer(team)       {},
-        showPlayers()          {},
         updatePlayer(player)   {}
     });
 

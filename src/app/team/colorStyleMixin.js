@@ -8,9 +8,9 @@ new function(){
 
     eval(this.imports);
 
-    const ColorStyleMixin = Base.extend({
-        getColorButtonStyle(color){
-                return this.team.color == color
+    const ColorStyleMixin = Module.extend({
+        getColorButtonStyle(object, color){
+                return object.team.color == color
                 ? [color.toString(), 'active']
                 : [color.toString()];
         }

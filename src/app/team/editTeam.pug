@@ -3,13 +3,13 @@ include ../../jersey.pug
 .l-createTeam
   .row
     .col-sm-12
-      h1 {{vm.title}}
+      h1 {{ctrl.title}}
   .row(equal-height)
     .col-sm-6
       .wrapSmall.js-equal-height
         .row
           .col-sm-4
-            +jersey('{{vm.team.color.value}}')
+            +jersey('{{ctrl.team.color.value}}')
         .row
           .col-sm-12
             form
@@ -17,8 +17,8 @@ include ../../jersey.pug
                 .col-sm-12
                   label
                     .teamName Team Name
-                  input(type="text" ng-model="vm.team.name" placeholder="Team Name")
-                  div.error(ng-messages='vm.$validation.team.name.errors')
+                  input(type="text" ng-model="ctrl.team.name" placeholder="Team Name")
+                  div.error(ng-messages='ctrl.$validation.team.name.errors')
                     div.small(ng-message='presence')
                       | Team name is required
               .inputWrap
@@ -26,13 +26,13 @@ include ../../jersey.pug
                   label
                     .teamManager Assign a Manager
                 .col-sm-12.col-md-6
-                  input(type="text" ng-model="vm.team.manager.firstName" placeholder="First Name")
-                  div.error(ng-messages='vm.$validation.team.manager.firstName.errors')
+                  input(type="text" ng-model="ctrl.team.manager.firstName" placeholder="First Name")
+                  div.error(ng-messages='ctrl.$validation.team.manager.firstName.errors')
                     div.small(ng-message='presence')
                       |  Manager's first name required
                 .col-sm-12.col-md-6
-                  input(type="text" ng-model="vm.team.manager.lastName" placeholder="Last Name")
-                  div.error(ng-messages='vm.$validation.team.manager.lastName.errors')
+                  input(type="text" ng-model="ctrl.team.manager.lastName" placeholder="Last Name")
+                  div.error(ng-messages='ctrl.$validation.team.manager.lastName.errors')
                     div.small(ng-message='presence')
                       | Manager's last name required
               .inputWrap
@@ -40,13 +40,13 @@ include ../../jersey.pug
                   label
                    .teamManager Assign a Coach
                 .col-sm-12.col-md-6
-                  input(type="text" ng-model="vm.team.coach.firstName" placeholder="First Name")
-                  div.error(ng-messages='vm.$validation.team.coach.firstName.errors')
+                  input(type="text" ng-model="ctrl.team.coach.firstName" placeholder="First Name")
+                  div.error(ng-messages='ctrl.$validation.team.coach.firstName.errors')
                     div.small(ng-message='presence')
                       |  Coach's first name required
                 .col-sm-12.col-md-6
-                  input(type="text" ng-model="vm.team.coach.lastName" placeholder="Last Name")
-                  div.error(ng-messages='vm.$validation.team.coach.lastName.errors')
+                  input(type="text" ng-model="ctrl.team.coach.lastName" placeholder="Last Name")
+                  div.error(ng-messages='ctrl.$validation.team.coach.lastName.errors')
                     div.small(ng-message='presence')
                       |  Coach's last name required
               .inputWrap
@@ -56,9 +56,9 @@ include ../../jersey.pug
                 .col-sm-12
                   .teamColor
                     a.btn.btn-default.btn-lg(
-                      ng-repeat="color in vm.color.items"
-                      ng-click="vm.selectColor(color)"
-                      ng-class="vm.getColorButtonStyle(color)")
+                      ng-repeat="color in mlm.Color.items"
+                      ng-click="ctrl.selectColor(color)"
+                      ng-class="ctrl.getColorButtonStyle(color)")
     .col-sm-6
       .wrapSmall.js-equal-height
         .row
@@ -73,12 +73,12 @@ include ../../jersey.pug
                   th Number
                   th Birth Date
               tbody
-                tr(ng-repeat="player in vm.team.roster | orderBy:'number'")
+                tr(ng-repeat="player in ctrl.team.roster | orderBy:'number'")
                   td
                     strong {{player.fullName}}
                   td {{player.number}}
                   td {{player.birthdate}}
-            button.pull-right(class="btn btn-default btn-xs" ng-click="vm.addPlayer()") + add player
+            button.pull-right(class="btn btn-default btn-xs" ng-click="ctrl.addPlayer()") + add player
   .row
     .col-sm-12
-      button.pull-right(class="btn btn-success" ng-click="vm.save()") {{vm.buttonText}}
+      button.pull-right(class="btn btn-success" ng-click="ctrl.saveTeam()") {{ctrl.buttonText}}

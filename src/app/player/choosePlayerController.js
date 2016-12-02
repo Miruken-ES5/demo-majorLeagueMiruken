@@ -2,7 +2,7 @@ new function() {
 
     mlm.package(this, {
         name:    "player",
-        imports: "miruken.mvc,mlm",
+        imports: "mlm,miruken.mvc",
         exports: "ChoosePlayerController"
     });
 
@@ -16,19 +16,29 @@ new function() {
         },
 
         initialize() {
-            this.base();
-            const ctx = this.controllerContext;
-            return MasterDetail(ctx).getSelectedDetail(Team).then(team => {
-                this.team = team;
-                return PlayerFeature(ctx).players();
-            }).then(players => {
-                this.players = players.filter(player => player.teamId != this.team.id);
-            });
+            const io = this.io;
+            return MasterDetail(io)
+                .getSelectedDetail(Team).then(team => {
+                    this.team = team;
+                    return PlayerFeature(io).players();
+                }).then(players => {
+                    this.players = players.filter(p => p.teamId != this.team.id);
+                });
         },
 
-        addPlayer(player) {
-            this.player = player;
-            this.context.end();
+        choosePlayer() {
+            return ViewRegion(this.io.modal({
+                title:   "Select Your Players",
+                buttons: [
+                    { text: "Ok",     css: "btn-sm btn-primary" },
+                    { text: "Cancel", tag: -1 }
+                ]
+            })).show("app/player/choosePlayer")
+               .then(layer => layer.modalResult.then(result => {                    
+                   if (result && result.button.tag != -1) {
+                       return this.selectedPlayers;
+                   }
+               })).finally(() => this.endContext());
         }
     });
 

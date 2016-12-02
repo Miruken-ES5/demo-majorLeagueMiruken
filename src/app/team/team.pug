@@ -7,7 +7,7 @@ include teamDisplay.pug
     .row(equal-height)
       .col-sm-6
         .wrapSmall.js-equal-height
-          +teamDisplay('vm.team')
+          +teamDisplay('ctrl.team')
       .col-sm-6
         .wrapSmall.js-equal-height
           .row
@@ -21,7 +21,7 @@ include teamDisplay.pug
                     th Birth Date
                     th Age
                 tbody
-                  tr(ng-repeat="player in vm.team.roster | orderBy:'number'")
+                  tr(ng-repeat="player in ctrl.team.roster | orderBy:'number'")
                     td
                       strong {{player.fullName}}
                     td {{player.number}}
@@ -29,4 +29,4 @@ include teamDisplay.pug
                     td {{player.age}}
     .row
       .col-sm-12
-        button.btn.btn-success.pull-right(ng-click="vm.edit()") Edit Team
+        button.btn.btn-success.pull-right(ng-click="ctrl.editTeam()") Edit Team

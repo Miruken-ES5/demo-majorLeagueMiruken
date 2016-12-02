@@ -62,9 +62,12 @@ new function(){
 
     Player.implement({
         get team() {
-            return teams.find(team => {
+            var team = teams.find(team => {
                 return this.teamId === team.id;
             });
+            return (team)
+                ? new Team(team.toData())
+                : null;
         }
     });
 
@@ -81,12 +84,13 @@ new function(){
             return Promise.resolve(teams);
         },
         team(id) {
-            return Promise.resolve(teams.find(item => item.id == id));
+            var team = teams.find(item => item.id == id);
+            return Promise.resolve(new Team(team.toData()));
         },
         createTeam(team) {
             team.id = nextId();
             teams.push(team);
-            return Promise.resolve();
+            return Promise.resolve(team);
         },
         deleteTeam(team) {},
         updateTeam(team) {
@@ -107,15 +111,15 @@ new function(){
             return Promise.resolve(players);
         },
         player(id) {
-            return Promise.resolve(players.find(item => item.id == id));
+            var player = players.find(item => item.id == id);
+            return Promise.resolve(new Player(player.toData()));
         },
         createPlayer(player) {
             player.id = nextId();
             players.push(player);
-            return Promise.resolve();
+            return Promise.resolve(player);
         },
         deletePlayer(player) {
-
         },
         updatePlayer(player) {
             let existing = players.find(item => item.id === player.id);

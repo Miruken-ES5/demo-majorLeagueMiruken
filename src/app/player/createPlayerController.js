@@ -18,9 +18,15 @@ new function() {
             this.player = new Player();
         },
 
-        save() {
-            return PlayerFeature(this.controllerContext)
-                .createPlayer(this.player).then(() => PlayerFeature(this.context).showPlayers());
+        createPlayer() {
+            return ViewRegion(this.io)
+                .show("app/player/createEditPlayer");
+        },
+        savePlayer() {
+            return PlayerFeature(this.ifValid)
+                .createPlayer(this.player)
+                .then(player => PlayerController(this.io).next(
+                    ctrl => ctrl.showPlayer({id: player.id })));
         }
 
     });

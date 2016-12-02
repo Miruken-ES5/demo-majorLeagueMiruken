@@ -7,13 +7,13 @@ new function() {
     });
 
     eval(this.imports);
-
+    
     const EqualHeight = Directive.extend({
         restrict: "A",
         link(scope, elm) {
             scope.$watch(function () {
                 angular.element(elm).find('.js-equal-height').matchHeight({
-                    property: "min-height"
+                    property: "min-height"                            
                 });
             }, Undefined);
         }

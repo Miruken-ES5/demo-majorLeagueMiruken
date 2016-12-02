@@ -7,8 +7,8 @@ include playerDisplay.pug
   .row(equal-height)
     .col-sm-6
       .wrapSmall.js-equal-height
-        +playerDisplay("vm.player")
+        +playerDisplay("ctrl.player")
 
   .row
     .col-sm-6
-      button.pull-right.btn.btn-success(ng-click="vm.edit()") Edit Player
+      button.pull-right.btn.btn-success(ng-click="ctrl.edit()") Edit Player

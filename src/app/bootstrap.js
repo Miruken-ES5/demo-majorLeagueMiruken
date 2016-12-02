@@ -2,7 +2,7 @@ new function() {
 
     base2.package(this, {
         name:    "mlm",
-        imports: "miruken.ng,miruken.mvc,miruken.ioc",
+        imports: "miruken,miruken.mvc,miruken.ioc,miruken.ng",
         exports: "Bootstrap",
         ngModule: [
             "ui.router",

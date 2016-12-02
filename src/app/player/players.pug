@@ -5,9 +5,9 @@ include playerDisplay.pug
     .col-sm-6
       h1 Players
     .col-sm-6
-      button.pull-right.btn.btn-success.top(ng-click="vm.create()") Create a Player
+      button.pull-right.btn.btn-success.top(ng-click="ctrl.create()") Create a Player
   div(equal-height)
       .row(equal-height)
-        .col-sm-4(ng-repeat="player in vm.players | orderBy:'lastName'" ng-click="vm.goToPlayer(player)")
+        .col-sm-4(ng-repeat="player in ctrl.players | orderBy:'lastName'" ng-click="ctrl.goToPlayer(player)")
           .wrapSmall.active.js-equal-height
             +playerDisplay("player")

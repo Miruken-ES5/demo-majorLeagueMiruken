@@ -1,12 +1,12 @@
 .nav.navbar.navbar-inverse.navbar-fixed-top(ng-controller="HeaderController as vm")
   .container-fluid
     .navbar-header
-      a.navbar-brand(ng-click="vm.goToTeams()") Major League Miruken
+      a.navbar-brand(ui-sref="mvc.default({controller: 'teams', action: 'showteams'})") Major League Miruken
 
     .collapse.navbar-collapse
       ul.nav.navbar-nav
         li(ng-class="{ active: $state.includes('teams') }")
-          a(ng-click="vm.goToTeams()")   Teams
+          a(ui-sref="mvc.default({controller: 'teams', action: 'showteams'})")     Teams
         li(ng-class="{ active: $state.includes('players') }")
-          a(ng-click="vm.goToPlayers()") Players
+          a(ui-sref="mvc.default({controller: 'players', action: 'showplayers'})") Players
 

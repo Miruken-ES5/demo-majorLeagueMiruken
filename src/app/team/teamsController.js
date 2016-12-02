@@ -14,15 +14,18 @@ new function() {
         },
         initialize() {
             this.base();
-            return TeamFeature(this.context).teams()
-                .then(teams => this.teams = teams );
+            return TeamFeature(this.io).teams()
+                .then(teams => this.teams = teams);
         },
 
-        goToTeam(team) {
-            TeamFeature(this.context).showTeam(team);
+        showTeams() {
+            return ViewRegion(this.io).show("app/team/teams");
         },
-        create() {
-            TeamFeature(this.context).showCreateTeam();
+        goToTeam(team) {
+            TeamController(this.io).next(ctrl => ctrl.showTeam({ id: team.id }));
+        },
+        createTeam() {
+            CreateTeamController(this.io).next(ctrl => ctrl.createTeam());
         }
 
     });

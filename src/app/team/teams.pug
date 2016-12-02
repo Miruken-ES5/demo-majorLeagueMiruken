@@ -5,8 +5,8 @@ include teamDisplay.pug
     .col-sm-6
       h1 Teams
     .col-sm-6
-      button.pull-right.btn.btn-success.top(ng-click="vm.create()") Create a Team
+      button.pull-right.btn.btn-success.top(ng-click="ctrl.createTeam()") Create a Team
   .row(equal-height)
-    .col-sm-4(ng-repeat="team in vm.teams | orderBy:'name'" ng-click="vm.goToTeam(team)")
+    .col-sm-4(ng-repeat="team in ctrl.teams | orderBy:'name'" ng-click="ctrl.goToTeam(team)")
       .wrapSmall.active.js-equal-height
         +teamDisplay('team')

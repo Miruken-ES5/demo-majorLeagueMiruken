@@ -20,16 +20,19 @@ new function() {
             }
         },
 
-        $inject: [Player],
-        constructor(player){
-            this.player = new Player(player.toData());
+        showEditPlayer({id} = params) {
+            const io = this.io;
+            PlayerFeature(io)
+                .player(id).then(player => {
+                    this.player = player;
+                    return ViewRegion(io).show("app/player/createEditPlayer");
+                });
         },
-
-        save() {
-            var ctx = this.controllerContext;
-            return PlayerFeature(ctx).updatePlayer(this.player).then(player => {
-                return PlayerFeature(ctx).showPlayers();
-            });
+        savePlayer() {
+            return PlayerFeature(this.ifValid)
+                .updatePlayer(this.player)
+                .then(() => mlm.player.PlayerController(this.io)
+                    .next(ctrl => ctrl.showPlayer({ id: this.player.id })));
         }
     });
 

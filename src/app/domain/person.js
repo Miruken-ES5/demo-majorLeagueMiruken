@@ -33,10 +33,14 @@ new function(){
             return this._birthdate;
         },
         set birthdate(value) {
-            if(!value) return;
+            if(value) {
                 var selected = moment(value, DATE_FORMAT);
-            if(selected.isValid()){
-                this._birthdate = selected.format(DATE_FORMAT);
+                if(selected.isValid()){
+                    this._birthdate = selected.format(DATE_FORMAT);
+                }
+                return;
+            } else {
+                this._birthdate = value;
             }
         }
     });

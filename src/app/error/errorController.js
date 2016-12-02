@@ -65,7 +65,7 @@ new function() {
             });
         },
         initialize() {
-            this.context = this.context.parent.parent;
+            //this.context = this.context.parent.parent;
         },
 
         clearError() {
