@@ -36,7 +36,7 @@ new function() {
         },
         addPlayer() {
             const io = this.io;
-            ChoosePlayerController(io)
+            mlm.player.ChoosePlayerController(io)
                 .push(ctrl => ctrl.choosePlayer())
                 .then(players => {
                     if (players) {

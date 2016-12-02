@@ -22,10 +22,12 @@ new function() {
             return ViewRegion(this.io).show("app/team/teams");
         },
         goToTeam(team) {
-            TeamController(this.io).next(ctrl => ctrl.showTeam({ id: team.id }));
+            mlm.team.TeamController(this.io)
+                .next(ctrl => ctrl.showTeam({ id: team.id }));
         },
         createTeam() {
-            CreateTeamController(this.io).next(ctrl => ctrl.createTeam());
+            mlm.team.CreateTeamController(this.io)
+                .next(ctrl => ctrl.createTeam());
         }
 
     });

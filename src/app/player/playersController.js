@@ -25,9 +25,9 @@ new function() {
             mlm.player.PlayerController(this.io)
                 .next(ctrl => ctrl.showPlayer({ id: player.id }));
         },
-
         create() {
-            CreatePlayerController(this.io).next(ctrl => ctrl.createPlayer());
+            mlm.player.CreatePlayerController(this.io)
+                .next(ctrl => ctrl.createPlayer());
         }
     });
 
