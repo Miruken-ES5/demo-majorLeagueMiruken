@@ -31,10 +31,10 @@ new function() {
                 title:   "Select Your Players",
                 buttons: [
                     { text: "Ok",     css: "btn-sm btn-primary" },
-                    { text: "Cancel", tag: -1 }
+                    { text: "Cancel", css: "btn-sm", tag: -1 }
                 ]
             })).show("app/player/choosePlayer")
-               .then(layer => layer.modalResult.then(result => {                    
+               .then(layer => layer.modalResult.then(result => {
                    if (result && result.button.tag != -1) {
                        return this.selectedPlayers;
                    }
