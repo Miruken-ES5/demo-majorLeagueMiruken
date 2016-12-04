@@ -120,7 +120,7 @@ same thing, but doesn't look as ellegant and clean.
 ```
 Either one will work, but we prefere to new a function.  
 
-### Packages
+#### Packages
 The second thing you will notice is that we are creating a package at the 
 top of this file.  We borrow some functionality from a library called 
 **base2** that was written by Dean Edwards.  We don't use the whole library
@@ -217,7 +217,7 @@ Is available as is
 
 Now that you know all about packages, lets look at the Person object.
 
-### Models
+#### Models
 Person extends from Model.  That means a person is a Model and as 
 I said before you get lots of benefit from inheriting from model.  
 One of my favorit benefits is mapping.  Models can construct themselves
@@ -238,6 +238,196 @@ not to mention multiple objects. Miruken give you validation at the
 property, object, and controller levels. With that much flexibility you 
 can validate anything.
 
+#### $properties
+
+```
+$properties: {
+    id:        undefined,
+    firstName: { validate: $required },
+    lastName:  { validate: $required },
+    birthdate: undefined
+}
+```
+$properties are metadata about the properties of your object. To create 
+a property all you need to do is add a member to the object literal
+and Miruken will create the property on the object with an _ backing field.  
+Here id will simply
+create a property.  firstName and lastName create properties and  they
+also add validation.  These properties are required.  When validation is
+run on this object it will check that these properties are set.  
+Birthdate is interesting because we are declaring it in $properties so 
+that Miruken is aware of it, but it is a date and we know that dates 
+usually require special attention.  We also add a specific getter and setter
+for birthdate to only set the date if the value received is a valid date.
+
+#### properties
+The last important thing to point out here is that we also have properties 
+that only have getters.  We are calculating the fullname of our person
+based on the firstNam and lastName properties, and we are also calculating
+the age for our person based on their birthdate.
+
+### Player
+Now lets look at the Player class.
+```
+new function(){
+
+    base2.package(this, {
+        name   : "mlm",
+        imports: "miruken.mvc,miruken.validate",
+        exports: "Player"
+    });
+
+    eval(this.imports);
+
+    const Player = Person.extend({
+        $properties: {
+            number: {
+                validate: {
+                    presence: true,
+                    numericality: {
+                        onlyInteger: true,
+                        greaterThanOrEqualTo: 0
+                    }
+                }
+            },
+            teamId: null,
+            team:   { ignore: true }
+        },
+
+        $validateThat: {
+            birthdateIsProvided(validation) {
+                if (!this.birthdate) {
+                    validation.results.addKey("birthdate").addError("presence");
+                }
+            }
+        }
+    });
+
+    eval(this.exports);
+
+};
+```
+You see at the very top of the file that
+we are creating an mlm packages just like we did in person.  Player is also
+eported into the mlm package.  This is an improvement Miruken made to base2.
+We allow you to split your package definitions across multiple files.  This 
+gives us more flexibitily in organizing our code.  You can still put multiple
+classes in a file, but you can also split classes into seperate files
+following the single responsibility principle.  That way your files only
+have one reason to change.
+
+Player inherits from Person by executing the extend method on Person and
+passing in an object literal.  We define extra properties for the Player
+in $properties.  Player has everything a Person has, and it adds number, 
+teamId, and team properties.
+
+Player number is a great example of property validation.  On Person we
+used a very simple form of validation for firstName and lastName: 
+
+    validate: $required
+
+Is is actually a shortcut for:
+```
+validate: {
+    presence: true
+}
+```
+
+Here on Player number we have a more advanced validation senario:
+```
+number: {
+    validate: {
+        presence: true,
+        numericality: {
+            onlyInteger: true,
+            greaterThanOrEqualTo: 0
+        }
+    }
+}
+```
+`number` is required.  It must also be a number, an integer, and greater
+thand or equal to 0;
+
+Miruken uses [validate.js](https://validatejs.org/) to do property validation
+so you should be able to use any validator it supports.
+
+#### $validateThat
+Since, we are talking about validation, notice that Player has a $validateThat
+method:
+```
+$validateThat: {
+    birthdateIsProvided(validation) {
+        if (!this.birthdate) {
+            validation.results.addKey("birthdate").addError("presence");
+        }
+    }
+}
+```
+This is validation at the object level.  Often validation spans multiple 
+properties, or it only applies to the object when the object is in a specific 
+state.  Each method on the object literal becomes a validation for the object.
+It is also easy to understand because it is self documenting.
+$validateThat birthdayIsProvide reads like a sentence.
+
+Each validation message is passed a validation object when it is called
+by the framework.  Check anything about the property that needs to be checked
+and if it fails, add a key and an error to the results collection of the 
+validation.
+
+These validations can be synchronous or asynchronous.  If you need to do
+something asynchronous like make an http call just return a promise. When 
+the promises are all resolved Miruken will return the results.
+
+#### Model
+The last thing I want to talk about in Player, is some functionality we
+get from Model.  Remember Player inherits from Person, and Person inherits 
+from Model.  So Player is a Model.  This means that it can take advantage of
+all the features Model has to offer.  Remember earlier we said that Model
+gives us some advance Mapping capabilities? We can new instances of models 
+by giving them json objects and there are a couple of other features to 
+models.  Models have a `.toData()` method that will create a JSON object
+with just the $properties. It also has a `.fromData()` property that will
+update the object when given a JSON object.
+
+Notice this line of code in $properties:
+
+    team:   { ignore: true }
+
+Setting ignore to true tells the model to ignore this property when executing
+`.toData()` and `.fromData()`.
+
+This can be very helpful in controlling what data is sent back to the server
+in a JSON request.
+
+### Color
+The last object we want to talk about in the domain, is the Color enum:
+```
+const Color = Enum({
+    black:     "black",
+    blue:      "blue",
+    green:     "green",
+    lightBlue: "lightBlue",
+    maroon:    "maroon",
+    orange:    "orange",
+    red:       "red",
+    white:     "white",
+    yellow:    "yellow"
+});
+```
+Javascript does not have an Enum implementation, so Miruken has provided
+one for us.  You could just use an object literal to represent your enum,
+but Mirukens Enum has some handy features.  First, you can an array of 
+all the names from an enum:
+
+    Color.name = ["black", "blue" "green"...];
+
+Second, you can get all the values from an enum:
+
+    Color.value = ["black", "blue" "green"...];
+
+Third, Enums are immutable which means there values cannot be altered 
+accidently in code.  There are other features such as logical operations, 
+and toJSON, but we won't go in depth on those here.
 
 ## Features
 When we write applications we always organize our code with feature folders.
