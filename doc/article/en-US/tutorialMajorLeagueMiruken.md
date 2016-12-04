@@ -1,10 +1,17 @@
 # Major League Miruken Tutorial
 
-## Setup Your Environment
+Major League Miruken is a reasonbly complex demo application written to 
+show off the features of miruken and give us real code to discuss and 
+work through as you learn Miruken.  Craig Neuwirt, Miruken's creator, is 
+a huge soccer fan! When he is not working on Miruken or working with Miruken, 
+he is playing soccer, and when he is not playing soccer he is coaching
+his kids in soccer.  We really had no choice but to build a soccer application.
 
-### Mac
+# Setup Your Environment
+Before going throught this tutorial please set up your local environment
+following the instruction found in
+[Setting Up Your Environment ](environmentSetup.md).
 
-### Windows
 
 ## Frameworks and Tools
 The point of this tutorial is to teach you how to use Miruken, but these
@@ -399,6 +406,82 @@ Setting ignore to true tells the model to ignore this property when executing
 This can be very helpful in controlling what data is sent back to the server
 in a JSON request.
 
+### Team
+Team also extends from Model and there are some very powerful configurations
+on its $properties.
+
+```
+const Team = Model.extend({
+    $properties: {
+        id:      null,
+        name:    { validate: $required },
+        color:   { map: Color },
+        coach:   {
+            map: Person,
+            validate: {
+                presence: true,
+                nested:   true
+            }
+        },
+        manager: {
+            map: Person,
+            validate: {
+                presence: true,
+                nested:   true
+            }
+        },
+        roster:  {
+            map:    Player,
+            ignore: true
+        }
+    }
+});
+```
+#### Mapping
+`validate: $required` and `ignore: true` you have seen before, but map is 
+a new concept.
+
+    color: { map: Color }
+
+Here we are saying that the color property should be mapped to a Color
+Enum when the object is instantiated.
+
+    manager: { map: Person } 
+
+The manager should be mapped to a Person object.
+
+    roster:  { map: Player }
+
+Roster should be mapper to Player objects.  This one maybe surprising to you.
+The mapping functionality in Model is smart enough to map a single object, 
+and an array of objects.  Pass in a JSON array of players when instantiating
+Team, and the mapper will automatically create an array of players and 
+add them to your team.  
+
+This is a huge time and code saver.  Before we added this functionality to 
+Miruken we could easily write 50 to a 100 lines of code to map a JSON response
+to domain objects.  Once we started using this approach we had the pleasure
+of deleting hundreds of lines of mapping code.  When code start falling 
+away like that, you know you are doing the right thing!
+
+#### Nested Validation
+The last thing I want to point out about Team is nested validation.
+```
+coach:   {
+    map: Person,
+    validate: {
+        presence: true,
+        nested:   true
+    }
+}
+```
+Notice that in validation we have `nested: true`.  This tells Miruken's
+validation to validate the coach when it validates the Team.  We did the 
+same thing for manager as well.  When validation is called on the Team
+the entire object graph will be validate.  The team, the coach, and the manager
+will all three be validated and will be able to tell you what is wrong
+with them if they fail validation.
+
 ### Color
 The last object we want to talk about in the domain, is the Color enum:
 ```
@@ -429,6 +512,8 @@ Third, Enums are immutable which means there values cannot be altered
 accidently in code.  There are other features such as logical operations, 
 and toJSON, but we won't go in depth on those here.
 
+## boostrap.js
+
 ## Features
 When we write applications we always organize our code with feature folders.
 All the files related to a feature are grouped together in a folder.  This 
@@ -439,11 +524,7 @@ gets more features.  Major League Miruken has two features: players and teams.
 If you look in `src/app/team` you will find all the files releated to the 
 team feature.
 
-#### playerFeature.js
-
 ### Player Feature
-
-## boostrap.js
 
 ## protocol
 
