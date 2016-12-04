@@ -7,6 +7,8 @@ a huge soccer fan! When he is not working on Miruken or working with Miruken,
 he is playing soccer, and when he is not playing soccer he is coaching
 his kids in soccer.  We really had no choice but to build a soccer application.
 
+[View The Tutorial Here](doc/article/en-Us/tutorialMajorLeagueMiruken.md)
+
 ###Set up your environment
 
 Download and install [node](https://nodejs.org) from their website.
