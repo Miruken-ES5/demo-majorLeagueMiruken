@@ -7,7 +7,7 @@ a huge soccer fan! When he is not working on Miruken or working with Miruken,
 he is playing soccer, and when he is not playing soccer he is coaching
 his kids in soccer.  We really had no choice but to build a soccer application.
 
-[View The Tutorial Here](doc/article/en-Us/tutorialMajorLeagueMiruken.md)
+[View The Tutorial Here](https://github.com/Miruken-ES5/demo-majorLeagueMiruken/blob/master/doc/article/en-US/tutorialMajorLeagueMiruken.md)
 
 ###Set up your environment
 
