@@ -1,6 +1,11 @@
 #Major League Miruken
 
-A demo application for miruken.
+Major League Miruken is a reasonbly complex demo application written to 
+show off the features of miruken and give us real code to discuss and 
+work through as you learn Miruken.  Craig Neuwirt, Miruken's creator, is 
+a huge soccer fan! When he is not working on Miruken or working with Miruken, 
+he is playing soccer, and when he is not playing soccer he is coaching
+his kids in soccer.  We really had no choice but to build a soccer application.
 
 ###Set up your environment
 
